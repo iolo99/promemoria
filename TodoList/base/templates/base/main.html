@@ -1,0 +1,72 @@
+{% load static %}
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Promemoria</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <style>
+        body{
+            padding-top: 50px;
+        }
+        .content{
+            max-width: 550px;
+            margin: auto;
+            background: #fff;
+            border-radius: 10px;
+            -webkit-box-shadow: 2px 2px 13px -4px rgba(0,0,0,0.21);
+            box-shadow: 2px 2px 13px -4px rgba(0,0,0,0.21); 
+        }
+        input
+        { 
+            background: #fff;
+            border: 1px solid black;    
+        }
+
+    </style>
+  </head>
+  <body>
+    
+    <div class="content">
+        {% if request.user.is_authenticated %}
+            <div class="context">
+                <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#">Ciao {{request.user|title}}</a>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'taskspage' %}">I miei Task</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+    </div>
+{% else %}
+<div class="context">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Promemoria App</a>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{%url 'login' %}">Log in</a>
+                </li>
+            </ul>
+        </div>
+        </div>
+      </nav>
+</div>
+{% endif %}
+        {% block 'content' %}
+        {% endblock 'content' %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  </body>
+</html>

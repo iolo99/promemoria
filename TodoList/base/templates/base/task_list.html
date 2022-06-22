@@ -1,0 +1,39 @@
+{% extends 'base/main.html' %}
+{% block 'content' %}
+<h1>My To Do list</h1>
+
+
+<form style="max-width: 50%;" method="get" class="mt-1">
+    <div style="display: flex;">
+        <input class="form-control" type="text" name="area-ricerca" value="{{ricerca_input}}">
+        <input class="btn btn-secondary" type="submit" value="Cerca">
+    </div>
+</form>
+
+<a class="btn btn-success mt-5 mb-2" href="{% url 'taskcreate' %}">Create task</a>
+
+<div class="m-5 m-5" style="padding-bottom: 20px;">
+    <table>
+        <tr>
+            <th>item</th>
+            <th></th>
+            <th></th>
+            <th style="margin-right: 0;"></th>
+        </tr>
+        {% for task in tasks %}
+        <tr>
+            <style>
+                td a{margin-left: 30px;}
+            </style>
+            <td>{{ task.title }}</td>
+            <td><a class="btn btn-primary" href="{% url 'tasksDetail' task.id %}">View</a></td>
+            <td><a class="btn btn-primary" href="{% url 'taskupdate' task.id %}">Edit</a></td>
+            <td><a class="btn btn-danger" href="{% url 'taskdelate' task.id %}">Delate</a></td>
+        </tr>
+        {% empty %}
+            <h3>Non ci sono item nella lista</h3>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock 'content' %}
